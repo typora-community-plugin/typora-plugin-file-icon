@@ -1,0 +1,22 @@
+.file-node-icon {
+  min-width: 14px;
+  text-align: center;
+
+  .file-node-expanded>.file-node-content>&.fa-folder::before {
+    /* @see .fa-folder-open */
+    content: "\f07c";
+  }
+
+  &.fa-file-excel-o,
+  &.fa-table {
+    color: #107c41;
+  }
+
+  &.fa-file-powerpoint-o {
+    color: #c43e1c;
+  }
+
+  &.fa-file-word-o {
+    color: #185abd;
+  }
+}

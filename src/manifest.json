@@ -1,0 +1,10 @@
+{
+  "id": "typora-plugin-file-icon",
+  "name": "File Icon",
+  "description": "Show different icon for different file type in file tree.",
+  "author": "plylrnsdy",
+  "authorUrl": "https://github.com/plylrnsdy",
+  "version": "1.0.0",
+  "minAppVersion": "1.5.0",
+  "minCoreVersion": "2.0.0-beta.8"
+}
