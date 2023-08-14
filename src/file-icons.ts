@@ -46,6 +46,10 @@ const iconOfExtensions: IconOfExtensions[] = [
     extensions: ['.csv'],
   },
   {
+    icon: 'fa-file-text-o',
+    extensions: ['.text', '.txt'],
+  },
+  {
     icon: 'fa-file-word-o',
     extensions: ['.doc', '.docx'],
   },
