@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { Plugin, SettingTab, decorate } from '@typora-community-plugin/core'
+import { Plugin, PluginSettings, SettingTab, decorate } from '@typora-community-plugin/core'
 import { editor } from 'typora'
 import { fileExtensionIcons } from './file-icons'
 
@@ -12,19 +12,22 @@ const DEFAULT_SETTINGS: FileIconSettings = {
   fileExtensions: fileExtensionIcons(),
 }
 
-export default class FileIconPlugin extends Plugin {
-
-  settings: FileIconSettings
+export default class FileIconPlugin extends Plugin<FileIconSettings> {
 
   async onload() {
-    await this.loadSettings()
+    this.registerSettings(
+      new PluginSettings(this.app, this.manifest, {
+        version: 1,
+      }))
+
+    this.settings.setDefault(DEFAULT_SETTINGS)
 
     this.register(
       decorate.returnValue(editor.library.fileTree, 'renderNode', ([file], node) => {
 
         if (file.isDirectory) return node
 
-        const { fileExtensions } = this.settings
+        const fileExtensions = this.settings.get('fileExtensions')
         const ext = path.extname(file.name)
 
         node.find('.file-node-icon')
@@ -37,17 +40,6 @@ export default class FileIconPlugin extends Plugin {
     this.registerSettingTab(new FileIconSettingTab(this))
 
     editor.library.refreshPanelCommand()
-  }
-
-  onunload() {
-  }
-
-  async loadSettings() {
-    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData())
-  }
-
-  async saveSettings() {
-    await this.saveData(this.settings)
   }
 }
 
@@ -62,7 +54,7 @@ class FileIconSettingTab extends SettingTab {
   }
 
   onload() {
-    const { fileExtensions } = this.plugin.settings
+    const fileExtensions = this.plugin.settings.get('fileExtensions')
 
     this.addSettingTitle('File Name Icons')
     this.addSetting(setting => {
@@ -81,11 +73,11 @@ class FileIconSettingTab extends SettingTab {
           .onRowChange(row => {
             if (!row.name) return
             fileExtensions[row.name] = row.icon
-            this.plugin.saveSettings()
+            this.plugin.settings.set('fileExtensions', fileExtensions)
           })
           .onRowRemove(row => {
             delete fileExtensions[row.name]
-            this.plugin.saveSettings()
+            this.plugin.settings.set('fileExtensions', fileExtensions)
           })
       })
     })
