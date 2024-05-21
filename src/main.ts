@@ -1,5 +1,5 @@
-import * as path from 'path'
-import { Plugin, PluginSettings, SettingTab, decorate } from '@typora-community-plugin/core'
+import './style.scss'
+import { path, Plugin, PluginSettings, SettingTab, decorate } from '@typora-community-plugin/core'
 import { editor } from 'typora'
 import { fileExtensionIcons } from './file-icons'
 
