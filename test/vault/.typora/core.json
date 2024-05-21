@@ -1,11 +1,16 @@
 {
   "version": 1,
   "settings": {
-    "githubProxy": "ghproxy",
+    "displayLang": "zh-cn",
+    "githubProxy": "github",
     "showNotSupportedFile": true,
     "showSearchResultFullPath": false,
     "showRibbon": true,
     "showFileTabs": true,
-    "openLinkInCurrentWin": true
+    "openLinkInCurrentWin": true,
+    "quickOpenInCurrentWin": true,
+    "ignoreFile": true,
+    "ignoreFileGlob": ".git",
+    "ribbonState": {}
   }
 }
