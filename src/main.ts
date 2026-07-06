@@ -1,5 +1,6 @@
 import './style.scss'
-import { path, Plugin, PluginSettings, SettingTab, decorate } from '@typora-community-plugin/core'
+import { path, I18n, Plugin, PluginSettings, SettingTab, decorate } from '@typora-community-plugin/core'
+import * as Locale from './locales/lang.en.json'
 import { editor } from 'typora'
 import { fileExtensionIcons } from './file-icons'
 
@@ -45,24 +46,26 @@ export default class FileIconPlugin extends Plugin<FileIconSettings> {
 
 class FileIconSettingTab extends SettingTab {
 
-  get name() {
-    return 'File Icon'
-  }
+  i18n!: I18n<typeof Locale>
 
   constructor(private plugin: FileIconPlugin) {
     super()
+    this.i18n = new I18n<typeof Locale>({
+      localePath: path.join(plugin.manifest.dir!, 'locales')
+    })
   }
 
   onload() {
     const fileExtensions = this.plugin.settings.get('fileExtensions')
+    const t = this.i18n.t.bind(this.i18n)
 
-    this.addSettingTitle('File Name Icons')
+    this.addSettingTitle(t.settingsTitle)
     this.addSetting(setting => {
       setting.addTable(table => {
         table
           .setHeaders([
-            { title: 'File Name', prop: 'name', type: 'text' },
-            { title: 'Icon Classname', prop: 'icon', type: 'text' },
+            { title: t.colNameHeader, prop: 'name', type: 'text' },
+            { title: t.colIconHeader, prop: 'icon', type: 'text' },
           ])
           .setData(
             Object.keys(fileExtensions).map(k => ({
