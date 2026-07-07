@@ -46,6 +46,10 @@ export default class FileIconPlugin extends Plugin<FileIconSettings> {
 
 class FileIconSettingTab extends SettingTab {
 
+  get name() {
+    return 'File Icon'
+  }
+
   i18n!: I18n<typeof Locale>
 
   constructor(private plugin: FileIconPlugin) {
@@ -57,9 +61,8 @@ class FileIconSettingTab extends SettingTab {
 
   onload() {
     const fileExtensions = this.plugin.settings.get('fileExtensions')
-    const t = this.i18n.t.bind(this.i18n)
+    const { t } = this.i18n
 
-    this.addSettingTitle(t.settingsTitle)
     this.addSetting(setting => {
       setting.addTable(table => {
         table

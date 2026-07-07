@@ -1,5 +1,4 @@
 {
-  "settingsTitle": "Dateinamen-Symbole",
-  "colNameHeader": "Dateiname",
-  "colIconHeader": "Symbol-Klassenname"
+  "colNameHeader": "Dateierweiterung",
+  "colIconHeader": "Klassenname des Symbols"
 }
